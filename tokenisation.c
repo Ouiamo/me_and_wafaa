@@ -129,6 +129,7 @@ char    *handel_prnt(char *input)
     int i;
     
     i = 0;
+    i++;
     return (&input[i]);
 }
 
@@ -158,6 +159,7 @@ int count_tokens(char *input)
         return (0);
     while (*input)
     {
+        // printf("%s\n", input);
         if (*input == 34 || *input == 39) 
             input = handel_quotes(input);
         else if (*input == '|' || *input == '&' || *input == '>' || *input == '<')
@@ -202,9 +204,10 @@ char *cpy_prnt(char **input)
     char    *token;
     
     token = malloc(2);
-    token[1] = **input;
-    token[2] = '\0';
+    token[0] = **input;
+    token[1] = '\0';
     (*input)++;
+    printf("%s \n", token);
     return (token);
 }
 
@@ -256,7 +259,6 @@ char    **cpy_to_arr(char *input, char  **arr, int tokens)
         input++;
     while (*input && j < tokens)
     {
-        
         if (*input == '|' || *input == '&' || *input == '>' || *input == '<')
             arr[j] = cpy_pipe_redir(&input);
         else if (*input == '(' || *input == ')')

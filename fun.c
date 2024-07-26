@@ -6,7 +6,7 @@
 /*   By: oaoulad- <oaoulad-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 02:50:19 by oaoulad-          #+#    #+#             */
-/*   Updated: 2024/07/26 10:06:45 by oaoulad-         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:36:25 by oaoulad-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void    read_user_cmd(t_shell *shell)
         cheak_empty_input(input);
         add_history(input);
         tab = tokensation(input);
-        int i = 0;
-        while (tab[i] != NULL)
-        {
-            printf("this is : %s\n ",tab[i]);
-            i++;
-            printf("%d\n", i);
-        }
+        // int i = 0;
+        // while (tab[i] != NULL)
+        // {
+        //     printf("this is : %s\n ",tab[i]);
+        //     i++;
+        //     printf("%d\n", i);
+        // }
     }
 }
