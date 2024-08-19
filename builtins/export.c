@@ -6,57 +6,85 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:34:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/07/15 19:43:18 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/18 15:29:46 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char *alphabet(void)
-// {
-//     char *str;
-//     int i;
+int	check_valid_identifier(char c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9'))
+		return (0);
+	else
+		return (1);
+}
 
-//     str = malloc(27 * sizeof(char));
-//     if (!str)
-//         return (NULL);
-//     i = 0;
-//     while(i < 26)
-//     {
-//         str[i] = 'a' + i;
-//         i++;
-//     }
-//     str[i] = '\0';
-//     return (str);
-// }
+int	check_arg(char *str)
+{
+	int	i;
 
-// void ft_export(char **cmd, char **export)
-// {
-//     int i;
-//     char *alpha;
+	i = 0;
+	if (ft_isdigit(str[0]))
+		return (export_error(str));
+	if (str[0] == '=')
+		return (export_error(str));
+	// if (equal_sign(str) == 0)
+	// 	return (EXIT_FAILURE);
+	while (str[i] && str[i] != '=')
+	{
+		if (check_valid_identifier(str[i]))
+			return (export_error(str));
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
 
-//     i = 0;
-//     alpha = alphabet();
-//     if (ft_strcmp(cmd[1], "export") == 0)
-//     {
-//         while (alpha[i])
-//         {
-//             while (export[i])
-//             {
-//                 if (!ft_strncmp(&export[i][1], alpha + i, 1))
-//                 {
-//                     ft_putstr_fd("declare -x ", 1);
-//                     ft_putstr_fd(export[i], 1);
-//                     write(1, "\n", 1);
-//                 }
-//                 i++;
-//             }
-//             free(alpha);
-//         }
-//     }
-// }
+int	exist_value(t_env *my_env, char *str)
+{
+	while (my_env->export)
+	{
+		if (ft_strncmp(my_env->export, str, equal_sign(my_env->export)) == 0)
+		{
+			free(my_env->export);
+			my_env->export = ft_strdup(str);
+			return (1);
+		}
+		my_env = my_env->next;
+	}
+	return (0);
+}
 
-// int main (int ac, char **av, char **export)
-// {
-//     ft_export(av, export);
-// }
+int	ft_export(t_env *my_exp, char ** cmd)
+{
+	//char	**tmp;
+	int		i;
+	t_env *node;
+
+	i = 1;
+	if (!cmd[1])
+		print_sorted_exp(my_exp);
+	else
+	{
+		while (cmd[i])
+		{
+			if (!cmd[i][0] || cmd[i][0] == ' ' || cmd[i][0] == '\t')
+				return (export_error(cmd[i]));
+			if (!check_arg(cmd[i]))
+			{
+				if (equal_sign(cmd[i]) == 0 )
+				{
+					node = ft_lstnew(cmd[i], NULL);
+					ft_lstadd_back(&my_exp, node) ;
+					//  while(my_exp)
+    				// {
+   					//     printf("%s\n  ", my_exp->export);
+   				    //  	my_exp=my_exp->next;
+    				// }
+				}
+			}
+			i++;
+		}
+	}
+	return (EXIT_SUCCESS);
+}

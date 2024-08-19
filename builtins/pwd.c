@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 14:08:57 by wzahir            #+#    #+#             */
-/*   Updated: 2024/07/15 09:36:16 by wzahir           ###   ########.fr       */
+/*   Created: 2024/08/17 21:30:50 by wzahir            #+#    #+#             */
+/*   Updated: 2024/08/17 21:31:04 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_pwd(void)
     else
     {
         ft_putstr_fd("Error getting current working directory\n", 2);
-        exit_with_status(1);
+        //exit_status = 1;
     }
-    exit_with_status(0);
+    //exit_status = 0;
 }

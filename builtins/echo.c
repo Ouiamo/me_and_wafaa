@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:04:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/07/15 10:15:04 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/12 10:44:13 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ void ft_echo(char **cmd)
             break;
         i++;  
    }
+   while(cmd[i] && cmd[i][0] == '$' && cmd[i][1] == '?')
+   {
+        printf("%d\n",exit_status);
+        return;
+   }
    print(i, cmd);
    if (k == 1)
         write(1, "\n", 1);
 }
+
 // int main()
 // {
 //     char *cmd[] = {"echo","-nnnnnnnnnnnnnnnnnnnnn", "zahir", "wafaa",NULL};
