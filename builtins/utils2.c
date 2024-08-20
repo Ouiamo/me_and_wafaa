@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:12:05 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/15 09:44:23 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/19 23:36:27 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strdup(char *s)
 	char	*d;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	d = malloc(ft_strlen(s) + 1);
 	if (!d)
 		return (NULL);

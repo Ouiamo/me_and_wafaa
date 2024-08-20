@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 00:25:04 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/18 15:12:28 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 01:41:31 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define MAX_ARGUMENTS 100
 
-int exit_status;
+t_global shell;
 
 void read_command(char **input) {
     *input = readline("minishell> ");
@@ -35,6 +35,13 @@ void parse_command(char *input, char **args) {
     args[position] = NULL;
 }
 
+// void intial(void)
+// {
+//     shell.exit_status = 0;
+//     shell.my_env = NULL;
+//     shell.my_exp = NULL;
+// }
+
 int main(int ac, char **av, char **env) 
 {
     char *input;
@@ -43,9 +50,10 @@ int main(int ac, char **av, char **env)
     (void)ac;
     (void)av;
     t_env *my_env = NULL;
-    t_env *my_export = NULL;
+    t_env *my_exp = NULL;
+    shell.exit_status = 0;
     ft_getenv(env, &my_env);
-    my_exp(my_env , &my_export);
+    my_export(my_env , &my_exp);
     while (1) 
     {
         read_command(&input);
@@ -61,7 +69,9 @@ int main(int ac, char **av, char **env)
         else if (strcmp(args[0], "env") == 0)
             ft_env(args, my_env);
         else if (strcmp(args[0], "export") == 0)
-            ft_export(my_export, args);
+            ft_export(my_exp, args, my_env);
+        else if (strcmp(args[0], "unset") == 0)
+            ft_unset(my_env, my_exp, args);
         else if (strcmp(args[0], "pwd") == 0)
             ft_pwd();
         else
@@ -71,6 +81,7 @@ int main(int ac, char **av, char **env)
 		    return(127);
 	    }
         free(input);
+        
     }
     return 0;
 }

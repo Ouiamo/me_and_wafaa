@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 16:38:13 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/14 15:15:39 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/19 21:11:10 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_strchr(const char *s, char c)
 			return (i);
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -87,3 +87,28 @@ void	ft_strncpy(char **dst, const char *src, size_t size)
 	return ;
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	str_len;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	str_len = ft_strlen(s);
+	if (start >= str_len)
+		return (ft_strdup(""));
+	if (len > str_len - start)
+		len = str_len - start;
+	sub = malloc(len + 1);
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		sub[i] = s[start + i];
+		i++;
+	}
+	sub[len] = '\0';
+	return (sub);
+}

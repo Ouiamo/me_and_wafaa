@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 23:19:45 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/18 15:06:58 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 01:40:43 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 
 #define PATH_MAX        4096
 
-extern int	exit_status;
-
 typedef struct s_env
 {
 	char            *key;
@@ -37,12 +35,20 @@ typedef struct s_env
 	struct s_env   	*next;
 }	t_env;
 
+typedef struct s_global
+{
+	t_env *my_env;
+	t_env *my_exp;
+	int	exit_status;
+}		t_global;
+
+extern t_global shell;
 
 int	    	ft_strcmp(const char *s1, const char *s2);
 int	    	ft_strchr(const char *s, char c);
 void    	ft_putstr_fd(char *s, int fd);
 int	    	ft_strncmp(const char *s1, const char *s2, int n);
-t_env		*ft_lstnew(char *key, char *value);
+t_env	*ft_lstnew(char *key, char *value, char *envp);
 void		ft_lstadd_back(t_env **lst, t_env *new);
 void		ft_strncpy(char **dst, const char *src, size_t size);
 long long ft_atoi(const char *str);
@@ -58,18 +64,21 @@ void 		free_node(t_env *my_env);
 void 		ft_cd(char **tokens, t_env *my_env);
 void 		ft_echo(char **cmd);
 void 		ft_env(char **tokens, t_env *my_env);
-int			ft_export(t_env *my_exp, char ** cmd);
+int			ft_export(t_env *my_exp, char ** cmd, t_env *my_env);
 void 		ft_getenv(char **env, t_env **my_env);
 void		ft_pwd(void);
 void		ft_exit(char **cmd);
+void		ft_unset(t_env *my_env, t_env *my_exp, char **cmd);
 
 void 		print_sorted_exp(t_env *my_exp);
 char		*delete_quotes(char *str, char c);
 int			equal_sign(char *str);
 
-void 		my_exp(t_env *my_env, t_env **my_exp);
+void 		my_export(t_env *my_env, t_env **my_exp);
+int			exist_value(t_env *my_exp, char *key, char *value);
+void 		env_from_exp(t_env *my_env, t_env *my_exp);
 int			export_error(char *c);
-
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 void 		envp(t_env *my_env) ;
 
 

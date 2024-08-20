@@ -6,13 +6,13 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:51:04 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/18 14:53:11 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/19 22:01:35 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*ft_lstnew(char *key, char *value)
+t_env	*ft_lstnew(char *key, char *value, char *envp)
 {
 	t_env	*node;
 
@@ -21,6 +21,7 @@ t_env	*ft_lstnew(char *key, char *value)
 		return (NULL);
 	node -> key = key;
     node -> value = value;
+	node -> envp = envp;
 	node -> next = NULL;
 	return (node);
 }

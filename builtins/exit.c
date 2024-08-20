@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 10:23:28 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/12 10:46:15 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/19 12:39:43 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	is_str_digit(char	*args)
 
 void	ft_exit(char **cmd)
 {
-	exit_status = 0;
 	ft_putstr_fd("exit\n", 2);
 	if (!cmd[1])
 		exit(EXIT_SUCCESS);
@@ -41,7 +40,7 @@ void	ft_exit(char **cmd)
 	else if (is_str_digit(cmd[1]) && cmd[2])
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		exit_status = 1;
+		shell.exit_status = 1;
 	}
 	else
 	{

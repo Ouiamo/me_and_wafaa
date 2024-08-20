@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:04:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/12 10:44:13 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/19 12:37:01 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void ft_echo(char **cmd)
    }
    while(cmd[i] && cmd[i][0] == '$' && cmd[i][1] == '?')
    {
-        printf("%d\n",exit_status);
+        printf("%d\n",shell.exit_status);
         return;
    }
    print(i, cmd);
