@@ -6,8 +6,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRC = main.c  cd.c  echo.c  env.c  exit.c  pwd.c export.c\
-    	utils_export.c  utils1.c   utils2.c  utils3.c lst_utils.c\
+SRC = main.c  cd.c  echo.c  env.c  exit.c  pwd.c export.c  unset.c\
+      utils_export1.c utils_export2.c  utils1.c   utils2.c\
+	  utils3.c   lst_utils.c\
 
 OBJ = $(SRC:.c=.o)
 

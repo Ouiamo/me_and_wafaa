@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:12:14 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/15 19:41:03 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 11:37:19 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,3 @@ void ft_cd(char **tokens, t_env *my_env)
         //     my_env = my_env->next;
         // }
 }
-
-// int main(int ac, char **av, char **env) 
-// {
-//     t_env *my_env;
-    
-//     my_env = NULL;
-//     if (ac < 2) {
-//         printf("Usage: %s cd <directory>\n", av[0]);
-//         return 1;
-//     }
-//     ft_cd(av, env);
-//     //ft_pwd();
-//     t_env *temp;
-//     while (my_env) 
-//     {
-//         temp = my_env;
-//         my_env = my_env->next;
-//         free(temp->key);
-//         free(temp->value);
-//         free(temp);
-//     }
-//     return 0;
-// }

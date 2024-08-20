@@ -6,39 +6,12 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:34:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 00:49:10 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 11:29:32 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_valid_identifier(char c)
-{
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_' || (c >= '0' && c <= '9'))
-		return (0);
-	else
-		return (1);
-}
-
-int	check_arg(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(str[0]))
-		return (export_error(str));
-	if (str[0] == '=')
-		return (export_error(str));
-	while ((str[i] && str[i] != '='))
-	{
-		if (str[i] == '+' && str[i + 1] == '=')
-			return (EXIT_SUCCESS);
-		if (check_valid_identifier(str[i]))
-			return (export_error(str));
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
 
 int	exist_value(t_env *my_exp, char *key, char *value)
 {
@@ -57,15 +30,69 @@ int	exist_value(t_env *my_exp, char *key, char *value)
 	return (1);
 }
 
-int	ft_export(t_env *my_exp, char ** cmd, t_env *my_env)
+int	add_value(t_env *my_exp, char *key, char *value)
 {
-	//char	**tmp;
-	int		i;
-	int		j;
-	int 	k;
+	while (my_exp)
+	{
+		if (ft_strcmp(my_exp->key, key) == 0)
+		{
+			my_exp->value = ft_strjoin(my_exp->value, value);
+			return (0);
+		}
+		my_exp = my_exp->next;
+	}
+	return (1);
+}
+
+void creat_node(t_env **my_exp, char *key, char *value, int n)
+{
 	t_env *node;
+	
+	if (n == 1)
+	{
+		node = ft_lstnew(key, value, NULL);
+		ft_lstadd_back(my_exp, node);
+	}
+	else if (n == 2)
+	{
+		node = ft_lstnew(key, value , NULL);
+		ft_lstadd_back(my_exp, node);
+	}
+
+}
+
+void util_exp(char *cmd, t_env *my_exp)
+{
 	char *key;
 	char *value;
+	int		j;
+	
+	j = ft_strchr(cmd, '=');
+	if (j && ft_strchr(cmd, '+'))
+	{
+		key = ft_substr(cmd, 0, ft_strchr(cmd, '+'));
+		value = ft_substr(cmd, j + 1, ft_strlen(cmd));
+		if(add_value(my_exp, key , value))
+			creat_node(&my_exp, key, value, 1);
+	}
+	else if (j)
+	{
+		key = ft_substr(cmd, 0, j);
+		value = ft_substr(cmd, j + 1, ft_strlen(cmd));
+		if(exist_value(my_exp, key , value))
+			creat_node(&my_exp, key, value, 1);
+	}
+	else
+	{
+		if(exist_value(my_exp, cmd , NULL))
+			creat_node(&my_exp, ft_strdup(cmd), NULL, 2);
+	}
+}
+
+
+int	ft_export(t_env *my_exp, char ** cmd, t_env *my_env)
+{
+	int		i;
 
 	i = 1;
 	if (!cmd[i])
@@ -74,57 +101,12 @@ int	ft_export(t_env *my_exp, char ** cmd, t_env *my_env)
 	{
 		while (cmd[i] && !check_arg(cmd[i]))
 		{
-		// if (!cmd[i][0] || cmd[i][0] == ' ' || cmd[i][0] == '\t')
-		// 	return (export_error(cmd[i]));
-			// j = ft_strchr(cmd[i], '=');
-			// if (j)
-			// {
-			// 	key = ft_substr(cmd[i], 0, j);
-			// 	value = ft_substr(cmd[i], j + 1, ft_strlen(cmd[i]));
-			// 	if(exist_value(my_exp, key , value))
-			// 	{
-			// 		node = ft_lstnew(key, value, NULL);
-			// 		ft_lstadd_back(&my_exp, node);
-			// 	}
-			// }
-			// else
-			// {
-			// 	if(exist_value(my_exp, cmd[i] , NULL))
-			// 	{
-			// 		node = ft_lstnew(ft_strdup(cmd[i]), NULL , NULL);
-			// 		ft_lstadd_back(&my_exp, node);
-			// 	}
-			// }
-			j = ft_strchr(cmd[i], '=');
-			k = ft_strchr(cmd[i], '+');
-			if (j)
-			{
-				key = ft_substr(cmd[i], 0, j);
-				value = ft_substr(cmd[i], j + 1, ft_strlen(cmd[i]));
-				if(exist_value(my_exp, key , value))
-				{
-					node = ft_lstnew(key, value, NULL);
-					ft_lstadd_back(&my_exp, node);
-				}
-			}
-			else
-			{
-				if(exist_value(my_exp, cmd[i] , NULL))
-				{
-					node = ft_lstnew(ft_strdup(cmd[i]), NULL , NULL);
-					ft_lstadd_back(&my_exp, node);
-				}
-			}
-			env_from_exp(my_env, my_exp);	
+			// if (!cmd[i][0] || cmd[i][0] == ' ' || cmd[i][0] == '\t')
+			// 	return (export_error(cmd[i]));
+			util_exp(cmd[i], my_exp);
+			env_from_exp(&my_env, my_exp);	
 			i++;
 		}
 	}
 	return (EXIT_SUCCESS);
 }
-
-
-			// while(my_exp)
-    			// {
-   				// 	printf("key :%s  value : %s  env :%s\n", my_exp->key ,my_exp->value  , my_exp->envp);
-   				//     my_exp = my_exp->next;
-    			// }

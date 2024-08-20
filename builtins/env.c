@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:02:16 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 01:26:23 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 10:22:14 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,32 @@ void ft_getenv(char **env, t_env **my_env)
         ft_lstadd_back(my_env, node);
         i++;
     }
-   // envp(*my_env);
+    // free(key);
+    // free(value);
     //free_node(*my_env);
-    // while(*my_env)
-    // {
-    //     printf("key : %s\n  value : %s\n ", (*my_env)->key, (*my_env)->value);
-    //     *my_env=(*my_env)->next;
-    // }
 }
 
-void env_from_exp(t_env *my_env, t_env *my_exp)
+void env_from_exp(t_env **my_env, t_env *my_exp)
 {
-	t_env *node;
-	char *key;
+    t_env *node;
+    char *key;
     char *value;
+
     while (my_exp)
     {
-        if (!my_exp->value)
-           my_exp = my_exp->next;
-        if (!my_exp)
-            break;
-        key = ft_strdup(my_exp->key);
-       	value = ft_strdup(my_exp->value);
-		node = ft_lstnew(key, value, NULL);
-        ft_lstadd_back(&my_env, node);
+        if (my_exp->value)
+        {
+            key = ft_strdup(my_exp->key);
+            value = ft_strdup(my_exp->value);
+            node = ft_lstnew(key, value, NULL);
+            if (!node)
+            {
+                free(key);
+                free(value);
+                return;
+            }
+            ft_lstadd_back(my_env, node);
+        }
         my_exp = my_exp->next;
     }
 }

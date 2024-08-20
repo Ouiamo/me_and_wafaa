@@ -6,7 +6,7 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:51:04 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/19 22:01:35 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 13:00:24 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,14 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 // 		lst = lst -> next;
 // 	return (lst);
 // }
+
+void	ft_lstdelone(t_env *lst)
+{
+	if (!lst)
+		return ;
+	free(lst->key);
+	free(lst->value);
+	//free(lst);
+}
+
+

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_export.c                                     :+:      :+:    :+:   */
+/*   utils_export1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:45:20 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 00:39:35 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/20 11:37:56 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,7 @@ void print_sorted_exp(t_env *my_exp)
 	char *tmp1;
 	t_env *head;
 
-	//my_export(my_env , &my_exp);
     sort_exp(&my_exp);
-	// while(my_exp)
-   	// {
-   	// 	printf("key %s\n , value  %s\n ", my_exp->key , my_exp->value);
-   	// 	my_exp=my_exp->next;
-    // }
 	head = my_exp;
 	while (my_exp) 
     {
