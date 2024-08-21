@@ -216,7 +216,7 @@ char    **tokensation(char *input)
 
     arr =  NULL;
     tokens = count_tokens(input);
-    // printf("nbr of tokens : %d\n", tokens);
+    printf("nbr of tokens : %d\n", tokens);
     if (tokens < 0)
         return (NULL);
     arr = ft_malloc(sizeof(char *) * (tokens + 1), 0);

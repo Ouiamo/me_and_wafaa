@@ -19,14 +19,13 @@ void    initial_my_shell(t_minishell *minishell, char  **arr)
 
     i = nbr_commands(arr);
     minishell->shell = ft_malloc(sizeof(t_shell) * (i + 1), 0);
-    //minishell->shell[0].full_commnad = NULL;
     while (i > -1)
     {
         minishell->shell[i].pipe_type = 0;
         minishell->shell[i].prnt = 0;
         minishell->shell[i].cmd = NULL;
         minishell->shell[i].flags = NULL;
-        //minishell->shell[i].full_commnad = NULL;
+        minishell->shell[i].full_commnad = NULL;
         i--;
     }
 }
@@ -53,12 +52,43 @@ t_shell add_prnt(char c, t_shell shell)
     return (shell);
 }
 
+char    *remove_quotes(char *arr)
+{
+    int i;
+    char quote;
+    char *new;
+    int j;
+
+    i = -1;
+    while (arr[++i])
+    {
+        if (arr[i] == 39 || arr[i] == 34)
+            quote = arr[i];
+    }
+    if (quote)
+        new = ft_malloc(i - 1, 0);
+    else
+        new = ft_malloc(i + 1, 0);
+    i = 0;
+    j = 0;
+    while (arr[i])
+    {
+        if (arr[i] == 39 || arr[i] == 34)
+            i++;
+        else
+            new[j++] = arr[i++];
+    }
+    new[j] = '\0';
+    return (new);
+}
+
 t_list  *add_flags(char *arr, t_shell shell)
 {
     t_list  *new_flag;
     t_list  *tmp;
 
     new_flag = ft_malloc(sizeof(t_list), 0);
+    //arr = remove_quotes(arr);
     new_flag->content = arr;
     new_flag->next = NULL;
     if (!shell.flags)
@@ -99,9 +129,9 @@ void    creat_my_shell(t_minishell *minishell, char  **arr)
             minishell->shell[i] = add_pipetype(*arr, minishell->shell[i]);
             i++;
         }
-        // add_redir
         else if (**arr == '(' || **arr == ')')
             minishell->shell[i] = add_prnt(**arr, minishell->shell[i]);
+        // add_redir
         else
             minishell->shell[i] = add_cmd(&arr, minishell->shell[i]);
         arr++;
