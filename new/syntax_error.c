@@ -17,6 +17,8 @@ char    *cheak_prnt(char **arr)
     }
     if (prnt > 0)
             return ("(");
+    if (prnt < 0)
+        return (")");
     return (0);
 }
 
@@ -61,16 +63,34 @@ char    *third_cheak(char **arr)
     return (NULL);
 }
 
-char    *cheak_arr(char  **arr)
+char    *cheak_cmd(char **arr)
 {
-    char    *ptr;
     int i;
 
     i = 0;
-    if (**arr == '|' || **arr == '&')
-        return (*arr);
+    while (arr[i])
+    {
+        if (arr[i][0] == '(' && i != 0 && arr[i - 1][0] != '|' && arr[i - 1][0] != '&' && arr[i - 1][0] != '>' && arr[i - 1][0] != '<' && arr[i - 1][0] != '(' && arr[i - 1][0] != ')')
+        {
+            i++;
+            return (arr[i]);
+        }
+
+        i++;
+    }
+    return (NULL);
+}
+
+char    *cheak_arr(char  **arr)
+{
+    char    *ptr;
+
+    if (cheak_cmd(arr))
+        return (cheak_cmd(arr));
     if (cheak_prnt(arr))
         return (cheak_prnt(arr));
+    if (**arr == '|' || **arr == '&')
+        return (*arr);
     while (*arr)
     {
         ptr = first_cheak(arr);
@@ -82,11 +102,8 @@ char    *cheak_arr(char  **arr)
         ptr = third_cheak(arr);
         if (**arr == '(' && ptr)
             return (ptr);
-        else if (i != 0 && **arr == '(' && (**(arr - 1) != '|' || **(arr - 1) != '&'))
-            return (*(arr + 1));
         if (*arr)
-            arr++;
-        i++;  
+            arr++;  
     }
     return (NULL);
 }

@@ -138,23 +138,23 @@ char *cpy_prnt(char **input)
 int arg_size(char *input)
 {
     int     i;
-    char    quote;
+    // char    quote;
 
     i = 0;
-    quote = 0;
+    // quote = 0;
     // printf ("input = %s\n", input);
     while (input[i] && !white_spaces(input[i]) && input[i] != '|' && input[i] != '&' && input[i] != '>' && input[i] != '<' && input[i] != '(' && input[i] != ')')
     {
-        if (input[i] == 34 || input[i] == 39)
-            quote = input[i];
+        // if (input[i] == 34 || input[i] == 39)
+        //     quote = input[i];
 			i++;
     }
-    if (quote)
-    {
-        if (i != 2)
-            return (i - 2);
-        return (1);
-    }
+    // if (quote)
+    // {
+    //     if (i != 2)
+    //         return (i - 2);
+    //     return (1);
+    // }
     return (i);
 }
 
@@ -172,14 +172,11 @@ char    *cpy_normal_arg(char **input)
             if (**input == 34 || **input == 39)
             {
                     quote = **input;
-			        //token[i++] = **input;
-                    //(*input)++;
-                    //printf("input = %s\n", *input);
+			        token[i++] = **input;
 			        while (++(*input) && **input != quote)
 				        token[i++] = **input;
                     if (**input)
-                        (*input)++;
-                        // token[i++] = *(*input)++;
+                        token[i++] = *(*input)++;
                     continue;
             }
             token[i++] = **input;
