@@ -9,9 +9,7 @@ int white_spaces(char c)
 char    *handel_quotes(char *input)
 {
     char    quote;
-    int i;
     
-    i = 0;
     quote = *input;
     input++;
     while (*input && *input != quote)
