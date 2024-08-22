@@ -146,7 +146,7 @@ t_shell add_out_file(char   *redir, t_shell shell, char *name)
         new_file->fd = open(name, O_CREAT, O_APPEND, O_RDONLY, 0644);
     else
         new_file->fd = open(name, O_CREAT, O_WRONLY, O_TRUNC, 0644);
-    if (new_file < 0)
+    if (new_file->fd < 0)
         printf("ERROR : we can not open %s\n", name);
     new_file->next = list_file;
     shell.outfiles = new_file;
