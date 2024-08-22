@@ -12,60 +12,50 @@ char    *handel_quotes(char *input)
     int i;
     
     i = 0;
-    quote = input[i];
-    i++;
-    while (input[i] && input[i] != quote)
-        i++;
-    if (input[i] != quote)
+    quote = *input;
+    input++;
+    while (*input && *input != quote)
+        input++;
+    if (*input != quote)
     {
         printf("UNCLOSED QUOTE\n");
         return (NULL);
     }
-    else if(input[i] == quote)
-        i++;
-    return (&input[i]);
+    else if(*input == quote)
+        input++;
+    return (input);
 
 }
 
 char    *handel_pipe_redir(char *input)
 {
     char    symbol;
-    int i;
-    
-    i = 0;
-    symbol = input[i];
-    i++;
-    while (input[i] == symbol)
-        i++;
-    return(&input[i]);
+    symbol = *input;
+    while (*input == symbol)
+        input++;
+    return(input);
 }
 
 char    *handel_prnt(char *input)
 {
-    int i;
-    
-    i = 0;
-    i++;
-    return (&input[i]);
+    input++;
+    return (input);
 }
 
 char    *handel_normal_arg(char *input)
 {
-  int i;
-    
-    i = 0;
-    while (input[i] && !white_spaces(input[i]) && input[i] != '|' && input[i] != '&' && input[i] != '>' && input[i] != '<' && input[i] != '(' && input[i] != ')')
+    while (*input && !white_spaces(*input) && *input!= '|' && *input != '&' && *input != '>' && *input != '<' && *input != '(' && *input != ')')
         {
-            if (input[i] == 34 || input[i] == 39)
+            if (*input == 34 || *input == 39)
             {
-                input = handel_quotes(&input[i]);
+                input = handel_quotes(input);
                 if (!input)
                     return (NULL);
             }
             else
-                i++;
+                input++;
         }
-        return (&input[i]);
+        return (input);
 }
 
 int count_tokens(char *input)
@@ -138,23 +128,10 @@ char *cpy_prnt(char **input)
 int arg_size(char *input)
 {
     int     i;
-    // char    quote;
 
     i = 0;
-    // quote = 0;
-    // printf ("input = %s\n", input);
     while (input[i] && !white_spaces(input[i]) && input[i] != '|' && input[i] != '&' && input[i] != '>' && input[i] != '<' && input[i] != '(' && input[i] != ')')
-    {
-        // if (input[i] == 34 || input[i] == 39)
-        //     quote = input[i];
 			i++;
-    }
-    // if (quote)
-    // {
-    //     if (i != 2)
-    //         return (i - 2);
-    //     return (1);
-    // }
     return (i);
 }
 

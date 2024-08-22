@@ -6,7 +6,7 @@
 /*   By: oaoulad- <oaoulad-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 02:42:23 by oaoulad-          #+#    #+#             */
-/*   Updated: 2024/08/18 11:33:28 by oaoulad-         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:19:13 by oaoulad-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 typedef struct s_list
 {
+	int				fd;
 	void			*content;
 	struct s_list	*next;
 }	t_list;
@@ -33,6 +35,8 @@ typedef struct s_shell
 	int		pipe_type;
 	int		prnt;
 	t_list	*flags;//args;
+	t_list	*infiles;
+	t_list	*outfiles;
 }	t_shell;
 
 typedef struct minishell

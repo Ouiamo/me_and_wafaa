@@ -6,7 +6,7 @@
 /*   By: oaoulad- <oaoulad-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 02:50:19 by oaoulad-          #+#    #+#             */
-/*   Updated: 2024/08/18 11:19:44 by oaoulad-         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:56:25 by oaoulad-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ void    read_user_cmd(char **env)
 			i++;
 		}
         free(input);
-        arr = free_memory(arr);
+        ft_malloc(-2, 0);
     }
 }

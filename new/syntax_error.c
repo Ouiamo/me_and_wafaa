@@ -75,7 +75,8 @@ char    *cheak_cmd(char **arr)
             i++;
             return (arr[i]);
         }
-
+        else if (arr[i][0] == ')' && arr[i + 1][0] != '|' && arr[i + 1][0] != '&' && arr[i + 1][0] != '>' && arr[i + 1][0] != '<' && arr[i + 1][0] != '(' && arr[i + 1][0] != ')')
+            return (arr[i + 1]);
         i++;
     }
     return (NULL);

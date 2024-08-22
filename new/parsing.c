@@ -59,12 +59,11 @@ char    *remove_quotes(char *arr)
     char *new;
     int j;
 
+    quote = 0;
     i = -1;
     while (arr[++i])
-    {
         if (arr[i] == 39 || arr[i] == 34)
             quote = arr[i];
-    }
     if (quote)
         new = ft_malloc(i - 1, 0);
     else
@@ -79,6 +78,7 @@ char    *remove_quotes(char *arr)
             new[j++] = arr[i++];
     }
     new[j] = '\0';
+    printf("mew = *%s*\n", new);
     return (new);
 }
 
@@ -88,8 +88,7 @@ t_list  *add_flags(char *arr, t_shell shell)
     t_list  *tmp;
 
     new_flag = ft_malloc(sizeof(t_list), 0);
-    //arr = remove_quotes(arr);
-    new_flag->content = arr;
+    new_flag->content = remove_quotes(arr);
     new_flag->next = NULL;
     if (!shell.flags)
         return (new_flag);
@@ -107,12 +106,63 @@ t_shell add_cmd(char ***arr, t_shell shell)
         if (***arr == '|' || ***arr == '&' || ***arr == '(' || ***arr == ')' || ***arr == '<' || ***arr == '>')
             break;
         if (!shell.cmd)
-            shell.cmd = **arr;
+            shell.cmd = remove_quotes(**arr);
         else
             shell.flags = add_flags(**arr, shell);
         (*arr)++;
     }
     (*arr)--;
+    return (shell);
+}
+
+t_shell add_in_file(char *redir, t_shell shell, char  *name)
+{
+     t_list  *new_file;
+    t_list  *list_file;
+
+    new_file = ft_malloc(sizeof(t_list), 0);
+    list_file = shell.infiles;
+    new_file = ft_malloc(sizeof(t_list), 0);
+    list_file = shell.infiles;
+    if(redir[1])
+        printf("it's herdoc\n");
+    else
+        new_file->fd = open(name,O_RDONLY);
+    if (new_file->fd < 0)
+        printf("minishell: %s: No such file or directory\n", name);
+    new_file->next = list_file;
+    shell.infiles = new_file;
+    return (shell);
+}
+
+t_shell add_out_file(char   *redir, t_shell shell, char *name)
+{
+    t_list  *new_file;
+    t_list  *list_file;
+
+    new_file = ft_malloc(sizeof(t_list), 0);
+    list_file = shell.outfiles;
+    if(redir[1])
+        new_file->fd = open(name, O_CREAT, O_APPEND, O_RDONLY, 0644);
+    else
+        new_file->fd = open(name, O_CREAT, O_WRONLY, O_TRUNC, 0644);
+    if (new_file < 0)
+        printf("ERROR : we can not open %s\n", name);
+    new_file->next = list_file;
+    shell.outfiles = new_file;
+    return (shell);
+}
+
+t_shell add_redir(char **arr, t_shell shell)
+{
+    char *my_redir;
+    
+    my_redir = *arr;
+    arr++;
+    if (my_redir[0] == '>')
+        shell = add_out_file(my_redir, shell, *arr);
+    if (my_redir[0] == '<')
+        shell = add_in_file(my_redir, shell, *arr);
     return (shell);
 }
 
@@ -131,7 +181,9 @@ void    creat_my_shell(t_minishell *minishell, char  **arr)
         }
         else if (**arr == '(' || **arr == ')')
             minishell->shell[i] = add_prnt(**arr, minishell->shell[i]);
-        // add_redir
+        else if (**arr == '<' || **arr == '>')
+            minishell->shell[i] = add_redir(arr, minishell->shell[i]);
+        // expand
         else
             minishell->shell[i] = add_cmd(&arr, minishell->shell[i]);
         arr++;
@@ -207,3 +259,7 @@ void    parsing(t_minishell *minishell, char **arr)
     creat_my_shell(minishell, arr);
     join_my_shell(minishell, nbr_commands(arr));
 }
+// fd = open
+// fd = -1
+// acces(fd , F_OK)
+// perror("")
