@@ -6,7 +6,7 @@
 /*   By: oaoulad- <oaoulad-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 02:50:19 by oaoulad-          #+#    #+#             */
-/*   Updated: 2024/08/21 11:56:25 by oaoulad-         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:26:22 by oaoulad-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,104 +17,93 @@ void	read_sig_handler(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
-    rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void    handling_signals(t_signal_status status)
+void	handling_signals(t_signal_status status)
 {
-    if (status == POS1)
-    {
-        signal(SIGINT, read_sig_handler);
+	if (status == POS1)
+	{
+		signal(SIGINT, read_sig_handler);
 		signal(SIGQUIT, SIG_IGN);
-    }
+	}
 }
 
-void    cheak_end_of_input(char *input)
+void	cheak_end_of_input(char *input)
 {
-    if (!input)
-    {
-        printf("exit\n");
-        exit(0);
-    }
+	if (!input)
+	{
+		printf("exit\n");
+		exit(0);
+	}
 }
 
-int no_input(char *input)
+int	no_input(char *input)
 {
-    while (*input)
-    {
-        if (white_spaces(*input))
-            input++;
-        else
-            break;
-    }
-    if (!*input)
-        return(1);
-    return(0);
+	while (*input)
+	{
+		if (white_spaces(*input))
+			input++;
+		else
+			break ;
+	}
+	if (!*input)
+		return (1);
+	return (0);
 }
 
-char	**free_memory(char **arr)
+void	read_user_cmd(char **env)
 {
-	unsigned int	i;
+	char		*input;
+	char		**arr;
+	t_minishell	minishell;
 
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-	return (NULL);
-}
-
-void    read_user_cmd(char **env)
-{
-    char    *input;
-    char    **arr;
-    t_minishell minishell;
-    
-    (void)env;
-    while (1)
-    {
-        handling_signals(POS1);
-        input = readline("minishell $ ");
-        cheak_end_of_input(input);
-        if (no_input(input))
-            continue;
-        add_history(input);
-        arr = tokensation(input);
-        if (!arr)
-        {
-            free(input);
-            printf("arr is empty\n");
-            continue;
-        }
-         int i = 0;
-        // while (arr[i] != NULL)
-        // {
-        //     printf("this is : *%s*\n ",arr[i]);
-        //     i++;
-        //     printf("%d\n", i);
-        // }
-        // printf("return of syntax: %d\n", syntax_error(arr));
-        if (syntax_error(arr))
-            continue;
-        parsing(&minishell, arr);
-        
-        i = 0;
-		while (i < nbr_commands(arr))
+	(void)env;
+	while (1)
+	{
+		handling_signals(POS1);
+		input = readline("minishell $ ");
+		cheak_end_of_input(input);
+		if (no_input(input))
+			continue ;
+		add_history(input);
+		arr = tokensation(input);
+		if (!arr)
 		{
-            printf ("---------------------this is the nbr %d-------------------\n", i);
-			printf("    this is command %s\n", minishell.shell[i].full_commnad);
-			printf("    this is cmd %s\n", minishell.shell[i].cmd);
-			printf("    this is pipetype %d\n", minishell.shell[i].pipe_type);
-			printf("    this is parant %d\n", minishell.shell[i].prnt);
-			while (minishell.shell[i].flags)
-			{
-			printf("    this is args %s\n", (char *)minishell.shell[i].flags->content);
-			minishell.shell[i].flags = minishell.shell[i].flags->next;
-			}
-			printf ("------------------------------------------------------------\n\n");
-			i++;
+			free(input);
+			continue ;
 		}
-        free(input);
-        ft_malloc(-2, 0);
-    }
+		if (syntax_error(arr))
+			continue ;
+		parsing(&minishell, arr);
+		free(input);
+		ft_malloc(-2, 0);
+	}
 }
+//int i = 0;
+// while (arr[i] != NULL)
+// {
+//     printf("this is : *%s*\n ",arr[i]);
+//     i++;
+//     printf("%d\n", i);
+// }
+// printf("return (of syntax: %d\n", syntax_error(arr)));
+
+//i = 0;
+// while (i < nbr_commands(arr))
+// {
+// 	printf("---------------------this is the nbr%d-------------------\n", i);
+// 	printf("    this is command %s\n", minishell.shell[i].full_commnad);
+// 	printf("    this is cmd %s\n", minishell.shell[i].cmd);
+// 	printf("    this is pipetype %d\n", minishell.shell[i].pipe_type);
+// 	printf("    this is parant %d\n", minishell.shell[i].prnt);
+// 	while (minishell.shell[i].flags)
+// 	{
+// 		printf("    this is args %s\n",
+// 			(char *)minishell.shell[i].flags->content);
+// 		minishell.shell[i].flags = minishell.shell[i].flags->next;
+// 	}
+// 	printf("------------------------------------------------------------\n\n");
+// 	i++;
+// }

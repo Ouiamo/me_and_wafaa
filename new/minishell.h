@@ -6,7 +6,7 @@
 /*   By: oaoulad- <oaoulad-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 02:42:23 by oaoulad-          #+#    #+#             */
-/*   Updated: 2024/08/21 14:19:13 by oaoulad-         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:46:22 by oaoulad-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_list
 {
 	int				fd;
+	char			*herdoc;
 	void			*content;
 	struct s_list	*next;
 }	t_list;
@@ -59,6 +60,8 @@ typedef enum e_signal_status
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char *s, int start, size_t len);
 size_t  ft_strlen(char *str);
+int	ft_strcmp(char *s1, char *s2);
+char	**free_memory(char **arr);
 
 //minishell functions:
 
@@ -66,9 +69,24 @@ size_t  ft_strlen(char *str);
 int white_spaces(char c);
 void    read_user_cmd(char **env);
 char **tokensation(char *input);
+int	count_tokens(char *input);
+char	**cpy_to_arr(char *input, char **arr, int tokens);
 int    syntax_error(char **arr);
+char	*cheak_prnt(char **arr);
+char	*first_cheak(char **arr);
+char	*second_cheak(char **arr);
+char	*third_cheak(char **arr);
+char	*cheak_cmd(char **arr);
+
 int nbr_commands(char **arr);
 void    parsing(t_minishell *minishell, char **arr);
+void	creat_my_shell(t_minishell *minishell, char **arr);
+t_shell	add_redir(char **arr, t_shell shell);
+t_shell	add_cmd(char ***arr, t_shell shell);
+t_shell	add_prnt(char c, t_shell shell);
+t_shell	add_pipetype(char *arr, t_shell shell);
+void	join_my_shell(t_minishell *minishell, int n);
+
 void *ft_malloc(int size, void *p);
 
 
