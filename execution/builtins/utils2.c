@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 13:12:05 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/19 23:36:27 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:55 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 
 int ft_strlen(const char *s)

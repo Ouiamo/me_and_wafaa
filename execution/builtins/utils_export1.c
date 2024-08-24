@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:45:20 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 11:37:56 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:32 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void my_export(t_env *my_env, t_env **my_exp)
 {

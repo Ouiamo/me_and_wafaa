@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 00:25:04 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 12:24:21 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:12 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 #define MAX_ARGUMENTS 100
 
@@ -42,6 +42,26 @@ void parse_command(char *input, char **args) {
 //     shell.my_exp = NULL;
 // }
 
+int builtins(char **args, t_env *my_env, t_env *my_exp)
+{
+    if (strcmp(args[0], "exit") == 0)
+        return (ft_exit(args), 1);
+    else if (strcmp(args[0], "cd") == 0)
+        return (ft_cd(args, my_env), 1);
+    else if (strcmp(args[0], "echo") == 0)
+        return (ft_echo(args), 1);
+    else if (strcmp(args[0], "env") == 0)
+        return (ft_env(args, my_env), 1);
+    else if (strcmp(args[0], "export") == 0)
+        return (ft_export(my_exp, args, my_env), 1);
+    else if (strcmp(args[0], "unset") == 0)
+        return (ft_unset(my_env, my_exp, args), 1);
+    else if (strcmp(args[0], "pwd") == 0)
+        return (ft_pwd(), 1);
+    else
+		return(0);
+}
+
 int main(int ac, char **av, char **env) 
 {
     char *input;
@@ -49,6 +69,8 @@ int main(int ac, char **av, char **env)
     
     (void)ac;
     (void)av;
+    
+    t_minishell	minishell;
     t_env *my_env = NULL;
     t_env *my_exp = NULL;
     shell.exit_status = 0;
@@ -60,29 +82,11 @@ int main(int ac, char **av, char **env)
         if (!input)
             break; // EOF (Ctrl+D)
         parse_command(input, args);
-        if (strcmp(args[0], "exit") == 0)
-            ft_exit(args);
-        else if (strcmp(args[0], "cd") == 0)
-            ft_cd(args, my_env);
-        else if (strcmp(args[0], "echo") == 0)
-            ft_echo(args);
-        else if (strcmp(args[0], "env") == 0)
-            ft_env(args, my_env);
-        else if (strcmp(args[0], "export") == 0)
-            ft_export(my_exp, args, my_env);
-        else if (strcmp(args[0], "unset") == 0)
-            ft_unset(my_env, my_exp, args);
-        else if (strcmp(args[0], "pwd") == 0)
-            ft_pwd();
-        else
-	    {
-		    ft_putstr_fd(args[0], 2);
-		    ft_putstr_fd(": command not found\n", 2);
-		    return(127);
-	    }
+        execution(minishell, my_env, my_exp);
         free(input);
         
     }
     return 0;
 }
+
 

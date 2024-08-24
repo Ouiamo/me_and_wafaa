@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:04:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/19 12:37:01 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:32:17 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void print(int i, char **cmd)
 {
@@ -51,9 +51,4 @@ void ft_echo(char **cmd)
         write(1, "\n", 1);
 }
 
-// int main()
-// {
-//     char *cmd[] = {"echo","-nnnnnnnnnnnnnnnnnnnnn", "zahir", "wafaa",NULL};
-//     ft_echo(cmd);
-// }
 

@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 10:23:28 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/19 12:39:43 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:30:55 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 int	is_str_digit(char	*args)
 {

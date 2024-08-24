@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:51:04 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 13:00:24 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:04 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 t_env	*ft_lstnew(char *key, char *value, char *envp)
 {

@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 23:12:14 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 11:37:19 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:30:24 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void error(char *error)
 {

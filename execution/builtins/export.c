@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:34:07 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 11:29:32 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:30:59 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 
 int	exist_value(t_env *my_exp, char *key, char *value)

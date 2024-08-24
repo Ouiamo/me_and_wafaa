@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:02:16 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 10:22:14 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:30:38 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void envp(t_env *my_env) 
 {

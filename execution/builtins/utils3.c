@@ -6,11 +6,18 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 20:38:50 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/18 13:51:34 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:59 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
+
+void	error(char *str)
+{
+	write(2, "bash: ", 6);
+	perror(str);
+	exit(1);
+}
 
 char	*ft_strcpy(char *dest, char *src)
 {
@@ -49,30 +56,28 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		*ret;
-
-	ret = malloc(count * size);
-	if (!ret)
-		return (0);
-	//ft_bzero(ret, count * size);
-	return (ret);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
+	char	*sub;
+	size_t	str_len;
 	size_t	i;
 
-	if (size > 0)
+	if (!s)
+		return (NULL);
+	str_len = ft_strlen(s);
+	if (start >= str_len)
+		return (ft_strdup(""));
+	if (len > str_len - start)
+		len = str_len - start;
+	sub = malloc(len + 1);
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-		i = 0;
-		while (i < (size - 1) && src[i])
-		{
-			dst[i] = src [i];
-			i++;
-		}
-		dst[i] = '\0';
+		sub[i] = s[start + i];
+		i++;
 	}
-	return (ft_strlen(src));
+	sub[len] = '\0';
+	return (sub);
 }

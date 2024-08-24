@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 01:31:09 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 12:59:03 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:27 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void delete(t_env **head, char *key)
 {

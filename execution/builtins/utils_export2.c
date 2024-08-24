@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:25:41 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/20 11:25:57 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:36 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 int	check_valid_identifier(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: wzahir <wzahir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 21:30:50 by wzahir            #+#    #+#             */
-/*   Updated: 2024/08/17 21:31:04 by wzahir           ###   ########.fr       */
+/*   Updated: 2024/08/24 10:31:17 by wzahir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void	ft_pwd(void)
 {
